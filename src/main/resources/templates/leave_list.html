@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-
 <h2>Leave Requests</h2>
 
-<a href="/apply">+ Apply Leaves</a>
-
-<br><br>
-
-<table border="1" cellpadding="8">
+<table border="1">
     <tr>
         <th>Name</th>
         <th>Reason</th>
-        <th>From</th>
-        <th>To</th>
         <th>Status</th>
         <th>Action</th>
     </tr>
@@ -21,42 +11,17 @@
     <tr th:each="leave : ${leaves}">
         <td th:text="${leave.employeeName}"></td>
         <td th:text="${leave.reason}"></td>
-        <td th:text="${leave.startDate}"></td>
-        <td th:text="${leave.endDate}"></td>
         <td th:text="${leave.status}"></td>
+
         <td>
-            <a href="#"
-               th:onclick="'approveLeave(' + ${leave.id} + ')'">Approve</a>
-            |
-            <a href="#"
-               th:onclick="'rejectLeave(' + ${leave.id} + ')'">Reject</a>
+            <span th:if="${leave.status == 'PENDING'}">
+                <a th:href="@{/approve/{id}(id=${leave.id})}">Approve</a> |
+                <a th:href="@{/reject/{id}(id=${leave.id})}">Reject</a>
+            </span>
+
+            <span th:if="${leave.status != 'PENDING'}">
+                Action Completed
+            </span>
         </td>
     </tr>
 </table>
-
-<script>
-    function approveLeave(id) {
-        let user = prompt("Enter Admin username:");
-        let pass = prompt("Enter Admin password:");
-
-        if (user === "admin" && pass === "123") {
-            window.location.href = "/approve/" + id;
-        } else {
-            alert("Invalid admin credentials");
-        }
-    }
-
-    function rejectLeave(id) {
-        let user = prompt("Enter admin username:");
-        let pass = prompt("Enter admin password:");
-
-        if (user === "admin" && pass === "123") {
-            window.location.href = "/reject/" + id;
-        } else {
-            alert("Invalid admin credentials");
-        }
-    }
-</script>
-
-</body>
-</html>

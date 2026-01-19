@@ -1,12 +1,10 @@
 package com.project2.Leave_Approval.entity;
 
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "leave_request")
+@Table(name = "leave_requests")
 public class LeaveRequest {
 
     @Id
@@ -15,21 +13,13 @@ public class LeaveRequest {
 
     private String employeeName;
     private String reason;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-
     private String status;
 
-    // ✅ NO-ARG CONSTRUCTOR (VERY IMPORTANT)
     public LeaveRequest() {
         this.status = "PENDING";
     }
-
-    // ✅ GETTERS & SETTERS (EXACT NAMES)
 
     public Long getId() {
         return id;
