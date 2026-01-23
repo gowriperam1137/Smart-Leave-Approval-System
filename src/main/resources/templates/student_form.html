@@ -1,89 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Apply Leave</title>
+    <title>Student Leave Application</title>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #eef2f3;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(120deg, #e0eafc, #cfdef3);
             margin: 0;
             padding: 0;
-        }
-
-        .page-container {
-            width: 100%;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .form-container {
-            background: #ffffff;
-            width: 500px;
-            padding: 30px 35px;
-            border-radius: 8px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.15);
+        .card {
+            background: white;
+            width: 520px;
+            padding: 35px 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
-        h2 {
+        .title {
             text-align: center;
-            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
             color: #333;
         }
 
-        .form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 800px;
+        .subtitle {
+            text-align: center;
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 25px;
         }
 
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        input {
-            width: 100%;
-            font-size: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            height: 30px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            background: green;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        button:hover {
-            background: darkgreen;
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            margin-bottom: 6px;
             color: #333;
         }
 
-        .back-link:hover {
+        input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #007bff;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            font-size: 18px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .back:hover {
             text-decoration: underline;
         }
     </style>
@@ -91,59 +111,61 @@
 
 <body>
 
-<div class="page-container">
-    <div class="form-container">
+<div class="card">
 
-        <h2>Student Leave Application</h2>
+    <div class="title">Leave Application Form</div>
 
-        <form th:action="@{/save}" th:object="${leave}" method="post" >
+    <form th:action="@{/save}" th:object="${leave}" method="post">
 
-           <div class="form">
-               <div class="form-group">
-                   <label>Roll Number</label>
-                   <input type="text" th:field="*{rollNo}" required>
-               </div>
+        <div class="form-group">
+            <label>Roll Number</label>
+            <input type="text" th:field="*{rollNo}" required>
+        </div>
 
-               <div class="form-group">
-                   <label>Student Name</label>
-                   <input type="text" th:field="*{name}" required>
-               </div>
+        <div class="form-group">
+            <label>Student Name</label>
+            <input type="text" th:field="*{name}" required>
+        </div>
 
-               <div class="form-group">
-                   <label>Reason for Leave</label>
-                   <input type="text" th:field="*{reason}" required>
-               </div>
+        <div class="form-group">
+            <label>Reason for Leave</label>
+            <textarea th:field="*{reason}" required></textarea>
+        </div>
 
-               <div class="form-group">
-                   <label>Class</label>
-                   <input type="text" th:field="*{className}" required>
-               </div>
+        <div class="row">
+            <div class="form-group">
+                <label>Class</label>
+                <input type="text" th:field="*{className}" required>
+            </div>
 
-               <div class="form-group">
-                   <label>Section</label>
-                   <input type="text" th:field="*{section}" required>
-               </div>
+            <div class="form-group">
+                <label>Section</label>
+                <input type="text" th:field="*{section}" required>
+            </div>
+        </div>
 
-               <div class="form-group">
-                   <label>Department</label>
-                   <input type="text" th:field="*{department}" required>
-               </div>
+        <div class="form-group">
+            <label>Department</label>
+            <input type="text" th:field="*{department}" required>
+        </div>
 
-               <div class="form-group">
-                   <label>Start Date</label>
-                   <input type="date" th:field="*{startDate}" required>
-               </div>
+        <div class="row">
+            <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" th:field="*{startDate}" required>
+            </div>
 
-               <div class="form-group">
-                   <label>End Date</label>
-                   <input type="date" th:field="*{endDate}" required>
-               </div>
-           </div>
-            <button type="submit">Submit Application</button>
-        </form >
-        <a href="/" class="back-link">⬅ Back to Home</a>
+            <div class="form-group">
+                <label>End Date</label>
+                <input type="date" th:field="*{endDate}" required>
+            </div>
+        </div>
 
-    </div>
+        <button class="btn" type="submit">Submit Leave</button>
+    </form>
+
+    <a href="/" class="back">⬅ Back to Student Dashboard</a>
+
 </div>
 
 </body>

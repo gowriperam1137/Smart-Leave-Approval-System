@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LeaveRepository extends JpaRepository<LeaveRequest, Long> {
     List<LeaveRequest> findByStatus(String status);
+    List<LeaveRequest> findByRollNo(String rollNo);
 }

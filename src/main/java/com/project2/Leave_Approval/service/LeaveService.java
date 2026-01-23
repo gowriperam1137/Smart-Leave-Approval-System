@@ -62,4 +62,8 @@ public class LeaveService {
             }
         }
     }
+    public List<LeaveRequest> getLeavesByRollNo(String rollNo) {
+        return repository.findByRollNo(rollNo);
+    }
+
 }

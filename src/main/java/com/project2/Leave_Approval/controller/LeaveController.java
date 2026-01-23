@@ -14,70 +14,95 @@ public class LeaveController {
     @Autowired
     private LeaveService service;
 
-    // HOME PAGE
+    // ================= HOME =================
     @GetMapping("/")
     public String home() {
         return "index";
     }
 
-    // STUDENT FORM PAGE
-    @GetMapping("/student")
-    public String studentForm(Model model) {
+    // ================= STUDENT FLOW =================
+
+    @GetMapping("/student/home")
+    public String studentHome() {
+        return "student_home";
+    }
+
+    @GetMapping("/student/apply")
+    public String applyLeave(Model model) {
         model.addAttribute("leave", new LeaveRequest());
         return "student_form";
     }
 
-    // SAVE LEAVE (SUBMIT)
     @PostMapping("/save")
     public String saveLeave(@ModelAttribute LeaveRequest leave) {
         service.saveLeave(leave);
-        return "redirect:/";   // ✅ redirects to home
+        return "redirect:/";
     }
 
-    // ADMIN LOGIN PAGE
+    @GetMapping("/student/status")
+    public String checkStatusPage() {
+        return "student_status";
+    }
+
+    @PostMapping("/student/status")
+    public String viewStatus(@RequestParam String rollNo, Model model) {
+        model.addAttribute("leaves", service.getLeavesByRollNo(rollNo));
+        return "student_status_list";
+    }
+
+    // ================= ADMIN FLOW =================
+
     @GetMapping("/admin")
     public String adminLogin() {
         return "admin_login";
     }
 
-    // ADMIN AUTH
     @PostMapping("/adminLogin")
     public String adminAuth(@RequestParam String username,
                             @RequestParam String password,
                             HttpSession session,
                             Model model) {
 
-        if ("hod".equals(username) && "hod123".equals(password)) {
+        if ("hod".equals(username) && "Hod@123".equals(password)) {
             session.setAttribute("role", "ADMIN");
-            return "redirect:/leaves";   // ✅ REDIRECT HERE
+            return "redirect:/leaves";
         }
 
         model.addAttribute("error", "Invalid credentials");
         return "admin_login";
     }
 
-    // VIEW LEAVES
     @GetMapping("/leaves")
     public String viewLeaves(Model model, HttpSession session) {
+
+        if (!"ADMIN".equals(session.getAttribute("role"))) {
+            return "redirect:/admin";
+        }
+
         model.addAttribute("leaves", service.getAllLeaves());
         model.addAttribute("role", session.getAttribute("role"));
         return "leave_list";
     }
 
-
     @GetMapping("/approve/{id}")
     public String approve(@PathVariable Long id, HttpSession session) {
-        if ("ADMIN".equals(session.getAttribute("role"))) {
-            service.approve(id);
+
+        if (!"ADMIN".equals(session.getAttribute("role"))) {
+            return "redirect:/admin";
         }
+
+        service.approve(id);
         return "redirect:/leaves";
     }
 
     @GetMapping("/reject/{id}")
     public String reject(@PathVariable Long id, HttpSession session) {
-        if ("ADMIN".equals(session.getAttribute("role"))) {
-            service.reject(id);
+
+        if (!"ADMIN".equals(session.getAttribute("role"))) {
+            return "redirect:/admin";
         }
+
+        service.reject(id);
         return "redirect:/leaves";
     }
 }

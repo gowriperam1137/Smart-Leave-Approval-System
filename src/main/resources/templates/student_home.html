@@ -1,59 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Leave Approval System</title>
+    <title>Student Dashboard</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f6f8;
+            background: #eef2f3;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
-        .container {
+        .box {
             background: white;
             padding: 40px;
-            width: 400px;
+            width: 420px;
             text-align: center;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.2);
         }
 
         h2 {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         a {
             display: block;
+            padding: 15px;
             margin: 15px 0;
-            padding: 14px;
             background: #007bff;
             color: white;
             text-decoration: none;
             font-size: 18px;
-            border-radius: 6px;
+            border-radius: 5px;
         }
 
         a:hover {
             background: #0056b3;
         }
+
+        .back {
+            background: #6c757d;
+        }
+
+        .back:hover {
+            background: #545b62;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Leave Approval System</h1>
-    <h2>Select Role</h2>
+<div class="box">
+    <h2>Student Dashboard</h2>
 
-    <a href="/student/home">Student</a>
-    <a href="/admin">Admin (HOD)</a>
+    <a href="/student/apply">Apply Leave</a>
+    <a href="/student/status">Check Leave Status</a>
+    <a href="/" class="back">⬅ Back to Home</a>
 </div>
 
 </body>

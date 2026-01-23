@@ -35,6 +35,8 @@
             color: white;
             border: none;
             cursor: pointer;
+            padding: 12px;
+            font-size: 18px;
         }
 
         button:hover {
@@ -53,12 +55,16 @@
 <div class="login">
     <h2>HOD Login</h2>
 
-    <!-- ✅ USE THYMELEAF ACTION -->
+    <!-- ✅ THYMELEAF ACTION -->
     <form th:action="@{/adminLogin}" method="post">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
 
-    <!-- ERROR MESSAGE -->
-    <p class="error" th:text="${error}">
+    <!-- ✅ ERROR MESSAGE -->
+    <p class="error" th:text="${error}"></p>
+</div>
+
+</body>
+</html>

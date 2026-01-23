@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Leave Requests</title>
+    <title>Your Leave Requests</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
-            padding: 20px;
+            padding: 40px;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         table {
-            width: 100%;
+            margin: auto;
+            width: 70%;
             border-collapse: collapse;
             background: white;
             box-shadow: 0 0 12px rgba(0,0,0,0.15);
         }
 
         th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 12px;
             text-align: center;
+            border: 1px solid #ccc;
         }
 
         th {
@@ -33,30 +34,20 @@
             color: white;
         }
 
-        .approve {
-            background: green;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            text-decoration: none;
+        .approved {
+            color: green;
             font-weight: bold;
         }
 
-        .reject {
-            background: red;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            text-decoration: none;
+        .rejected {
+            color: red;
             font-weight: bold;
         }
 
-        .approve:hover { background: darkgreen; }
-        .reject:hover { background: darkred; }
-
-        .approved { color: green; font-weight: bold; }
-        .rejected { color: red; font-weight: bold; }
-        .pending { color: orange; font-weight: bold; }
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
 
         .back {
             display: block;
@@ -66,29 +57,26 @@
             text-decoration: none;
             color: #333;
         }
+
+        .back:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
 
-<h2>Leave Requests (HOD Panel)</h2>
+<h2>Your Leave Requests</h2>
 
 <table>
     <tr>
-        <th>ID</th>
-        <th>Roll No</th>
-        <th>Name</th>
         <th>Reason</th>
         <th>From</th>
         <th>To</th>
         <th>Status</th>
-        <th>Action</th>
     </tr>
 
     <tr th:each="leave : ${leaves}">
-        <td th:text="${leave.id}"></td>
-        <td th:text="${leave.rollNo}"></td>
-        <td th:text="${leave.name}"></td>
         <td th:text="${leave.reason}"></td>
         <td th:text="${leave.startDate}"></td>
         <td th:text="${leave.endDate}"></td>
@@ -98,23 +86,9 @@
             <span th:if="${leave.status == 'REJECTED'}" class="rejected">REJECTED</span>
             <span th:if="${leave.status == 'PENDING'}" class="pending">PENDING</span>
         </td>
-
-        <td>
-            <!-- ✅ USE LINKS (GET) -->
-            <span th:if="${leave.status == 'PENDING'}">
-                <a th:href="@{/approve/{id}(id=${leave.id})}" class="approve">Approve</a>
-                |
-                <a th:href="@{/reject/{id}(id=${leave.id})}" class="reject">Reject</a>
-            </span>
-
-            <span th:if="${leave.status != 'PENDING'}">
-                Action Completed
-            </span>
-        </td>
     </tr>
 </table>
 
 <a href="/" class="back">⬅ Back to Home</a>
-
 </body>
 </html>
